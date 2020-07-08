@@ -15,6 +15,7 @@ public protocol WebViewCellDelegate: NSObjectProtocol {
     ///   - cell: the WebViewCell
     ///   - contentHeight: height of WebViewCell
     func heightChangeObserve(in cell: UITableViewCell, contentHeight: CGFloat)
+    func webView(_ webView: WKWebView, didFinish _: WKNavigation!)
 }
 
 public class WebViewCell: UITableViewCell {
@@ -136,5 +137,6 @@ extension WebViewCell: WKNavigationDelegate {
             guard let self = self, let result = result as? Double else { return }
             self.contentSizeChange(height: CGFloat(result))
         }
+        delegate?.webView(webView, didFinish: navigation)
     }
 }
